@@ -11,6 +11,8 @@ from django.http import HttpResponse
 from home.models import Contact
 from django.contrib.auth.models import User
 from .forms import RegistrationForm
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -35,14 +37,23 @@ def services(request):
 
 # ...existing code...
 def search_files(request):
-    query = request.GET.get('query', '').lower()  # Get search query
-    results = []  # Store matching files
-
+    query = request.GET.get('query', '').lower()
+    results = []
+    
     if query:
-        folder_path = os.path.join(settings.BASE_DIR, 'hello', 'static')  # Folder where files are stored
-        for file_name in os.listdir(folder_path):
-            if query in file_name.lower():
-               results.append({'name': file_name,'url': '/static/' + file_name})
+        folder_path = os.path.join(settings.BASE_DIR, 'home', 'static')
+        
+        try:
+            if os.path.exists(folder_path):
+                for file_name in os.listdir(folder_path):
+                    if query in file_name.lower():
+                        results.append({
+                            'name': file_name,
+                            'url': os.path.join(settings.STATIC_URL, file_name)
+                        })
+        except Exception as e:
+            # You can log the error here for debugging
+            print(f"Error searching files: {e}")
 
     return render(request, 'search_results.html', {'query': query, 'results': results})
 
@@ -60,11 +71,6 @@ def contact(request):
         # contact = Contact(name=name, email=email, phone=phone, message = message, date = date_time)
         # contact.save()
       
-        
-
-        # Redirect to avoid resubmission on refresh
-       
-
         # ✅ Get current date and time
         now = datetime.datetime.now()
         formatted_datetime = now.strftime("%d-%m-%y / %I:%M:%S %p")
@@ -75,12 +81,12 @@ def contact(request):
 
         # ✅ Save contact data with date & time
         with open(file_path, 'a', encoding='utf-8') as f:
-           
             f.write(f"Date-Time: {formatted_datetime}\n")
             f.write(f"Name: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}\n")
             f.write("---------------------------------\n")
-           
-   
+        
+        messages.success(request, 'Your message has been submitted successfully!')
+        return redirect('contact')
     return render(request, 'contact.html')
 
 
@@ -89,7 +95,7 @@ def contact(request):
 
 def index(request):
     access_key = "ZaPFNltWwLFFAAS7bH17wQn6hEh58Wn8nuXAk5qFQKg"
-    query = "nature"
+    query = "beautiful mountain"
     url = f"https://api.unsplash.com/search/photos?query={query}&client_id={access_key}&per_page=8"
     response = requests.get(url)
     data = response.json()
@@ -115,3 +121,12 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request, 'createaccount.html', {'form': form})
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'You have been logged out successfully.')
+    return redirect('login')

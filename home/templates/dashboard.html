@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock title %}
+
+{% block body %}
+<style>
+    .dashboard-header {
+        background: #f8f9fa;
+        padding: 40px 0;
+        border-radius: 12px;
+        margin-bottom: 30px;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="dashboard-header text-center">
+        <h1 class="display-5">Welcome, {{ user.first_name|default:user.username }}!</h1>
+        <p class="lead text-muted">This is your personal dashboard.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-person-circle"></i> Your Profile</h5>
+                    <p class="card-text">View and manage your personal information.</p>
+                    <a href="#" class="btn btn-primary">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-clock-history"></i> Your Activity</h5>
+                    <p class="card-text">See your recent activity and contributions.</p>
+                    <a href="#" class="btn btn-primary">View Activity</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %} 
