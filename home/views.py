@@ -10,9 +10,10 @@ import datetime
 from django.http import HttpResponse
 from home.models import Contact
 from django.contrib.auth.models import User
-from .forms import RegistrationForm
+from .forms import RegistrationForm, ProfileEditForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from .models import Profile, Activity
 
 
 # Create your views here.
@@ -124,7 +125,26 @@ def register(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    user = request.user
+    Profile.objects.get_or_create(user=user)
+    edit_mode = request.GET.get('edit') == '1'
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            Activity.objects.create(user=user, action='Updated profile', details='User updated their profile information.')
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('dashboard')  # No edit param, so view mode
+        else:
+            edit_mode = True  # Stay in edit mode if form invalid
+    else:
+        form = ProfileEditForm(instance=user)
+    activities = Activity.objects.filter(user=user).order_by('-timestamp')[:10]
+    return render(request, 'dashboard.html', {
+        'form': form,
+        'activities': activities,
+        'edit_mode': edit_mode,
+    })
 
 def user_logout(request):
     logout(request)
