@@ -32,7 +32,10 @@ def about(request):
 def services(request):
     return render(request, 'services.html')
     # return HttpResponse("its services page")
+# ...existing code...
 
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
 
 
 
@@ -40,21 +43,50 @@ def services(request):
 def search_files(request):
     query = request.GET.get('query', '').lower()
     results = []
-    
+
+    # Mapping of template filenames (without .html) to URLs
+    page_map = {
+        'index': '/',
+        'about': '/about',
+        'services': '/services',
+        'contact': '/contact',
+        'createaccount': '/register/',
+        'login': '/login/',
+        'dashboard': '/dashboard/',
+        'privacy_policy': '/privacy-policy/',
+        'search_results': '/search/',
+    }
+
     if query:
-        folder_path = os.path.join(settings.BASE_DIR, 'home', 'static')
-        
+        # Search in templates folder
+        templates_path = os.path.join(settings.BASE_DIR, 'home', 'templates')
         try:
-            if os.path.exists(folder_path):
-                for file_name in os.listdir(folder_path):
+            if os.path.exists(templates_path):
+                for file_name in os.listdir(templates_path):
+                    if file_name.endswith('.html'):
+                        name_without_ext = file_name[:-5].lower()
+                        if query in name_without_ext:
+                            url = page_map.get(name_without_ext, None)
+                            if url:
+                                results.append({
+                                    'name': name_without_ext.title().replace('_', ' '),
+                                    'url': url
+                                })
+        except Exception as e:
+            print(f"Error searching templates: {e}")
+
+        # Search in static folder
+        static_path = os.path.join(settings.BASE_DIR, 'home', 'static')
+        try:
+            if os.path.exists(static_path):
+                for file_name in os.listdir(static_path):
                     if query in file_name.lower():
                         results.append({
                             'name': file_name,
                             'url': os.path.join(settings.STATIC_URL, file_name)
                         })
         except Exception as e:
-            # You can log the error here for debugging
-            print(f"Error searching files: {e}")
+            print(f"Error searching static files: {e}")
 
     return render(request, 'search_results.html', {'query': query, 'results': results})
 

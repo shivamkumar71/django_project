@@ -36,7 +36,7 @@ urlpatterns = [
    path("services", views.services, name = 'services'),
    path("contact", views.contact, name = 'contact'),
    path("login/", auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-
+    path('privacy/', views.privacy_policy, name='privacy_policy'),
    
 
 ]

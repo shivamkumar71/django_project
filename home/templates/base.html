@@ -67,11 +67,6 @@
       color: #1a1a1a;
       border-color: #fff;
     }
-    .new-footer .copyright {
-      font-size: 0.8rem;
-      color: #8c8c8c;
-      margin-top: 1rem;
-    }
 </style>
  
   <title> {% block title %}{% endblock title %} | Shivam pvt ltd</title>
@@ -96,6 +91,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'privacy_policy' %}">Privacy Policy</a>
           </li>
         </ul>
         <div class="d-flex align-items-center">
@@ -155,6 +153,7 @@
                       <li><a href="{% url 'about' %}">About Us</a></li>
                       <li><a href="{% url 'services' %}">Services</a></li>
                       <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                      <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
                   </ul>
               </div>
               <div class="col-lg-2 col-md-6 mb-4">
