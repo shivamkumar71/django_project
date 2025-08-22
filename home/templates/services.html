@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Services{% endblock title %}
+
+{% block body %}
+<style>
+    .services-hero {
+        background: #fff;
+        color: #222;
+        padding: 60px 0 40px 0;
+        text-align: center;
+        border-radius: 0 0 40px 40px;
+        margin-bottom: 40px;
+        border-bottom: 6px solid #381819; /* dark chocolate */
+        box-shadow: 0 4px 24px rgba(7, 42, 239, 0.04);
+    }
+    .services-hero h1 {
+        color: #222;
+    }
+    .services-hero p {
+        color: #444;
+    }
+    .service-card {
+        border: none;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+        background: #fff;
+    }
+    .service-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 8px 32px rgba(13,110,253,0.12);
+    }
+    .service-icon {
+        font-size: 2.8rem;
+        color: #0d6efd;
+        margin-bottom: 18px;
+    }
+    .service-title {
+        font-weight: 600;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    .service-desc {
+        color: #555;
+        font-size: 1.05rem;
+    }
+    .more-services {
+        margin-top: 40px;
+        text-align: center;
+    }
+    .more-services span {
+        font-size: 1.1rem;
+        color: #0d6efd;
+        font-weight: 500;
+    }
+</style>
+
+<div class="services-hero">
+    <h1>Welcome to Shivam Pvt Ltd</h1>
+    <p>We provide cutting-edge technology solutions including website development, app development, AI model development, chatbots, AI assistants, and much more. Explore our services below to see how we can help you grow with the latest in technology and artificial intelligence.</p>
+</div>
+
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card service-card h-100 text-center p-4">
+                <div class="service-icon"><i class="bi bi-window"></i></div>
+                <div class="service-title">Website Development</div>
+                <div class="service-desc">Custom, responsive, and modern websites built with the latest technologies to help you stand out online.</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card service-card h-100 text-center p-4">
+                <div class="service-icon"><i class="bi bi-phone"></i></div>
+                <div class="service-title">App Development</div>
+                <div class="service-desc">High-performance mobile and web apps tailored to your needs, ensuring seamless user experiences across all devices.</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card service-card h-100 text-center p-4">
+                <div class="service-icon"><i class="bi bi-cpu"></i></div>
+                <div class="service-title">AI Model Development</div>
+                <div class="service-desc">Designing and training advanced AI and machine learning models to solve real-world problems and drive innovation.</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card service-card h-100 text-center p-4">
+                <div class="service-icon"><i class="bi bi-robot"></i></div>
+                <div class="service-title">Chatbot & AI Assistant</div>
+                <div class="service-desc">Intelligent chatbots and AI assistants to automate customer support, boost engagement, and save time.</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card service-card h-100 text-center p-4">
+                <div class="service-icon"><i class="bi bi-lightbulb"></i></div>
+                <div class="service-title">AI Solutions & Consulting</div>
+                <div class="service-desc">Expert advice and custom AI solutions to help your business harness the power of artificial intelligence.</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card service-card h-100 text-center p-4">
+                <div class="service-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                <div class="service-title">Image Upload & Download (Coming Soon)</div>
+                <div class="service-desc">Soon, you’ll be able to upload and download high-quality images directly from our platform.</div>
+            </div>
+        </div>
+    </div>
+    <div class="more-services">
+        <span>...and much more for all your AI and technology needs!</span>
+    </div>
+</div>
+{% endblock body %}

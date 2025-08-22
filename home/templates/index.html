@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home {% endblock title %}
+
+{% block body %}
+
+<style>
+  .zoom-img {
+    transition: transform 0.4s cubic-bezier(.4,2,.6,.2);
+    cursor: pointer;
+  }
+  .zoom-img:hover {
+    transform: scale(1.12);
+    z-index: 2;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+</style>
+
+<div class="container-fluid px-0 py-0">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      {% for image in images %}
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}"
+        class="{% if forloop.first %}active{% endif %}" aria-current="{% if forloop.first %}true{% endif %}"
+        aria-label="Slide {{ forloop.counter }}"></button>
+      {% endfor %}
+    </div>
+    <div class="carousel-inner">
+      {% for image in images %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ image.urls.regular }}" class="d-block" alt="Nature Photo"
+          style="height: 350px; width: 100%; object-fit: cover;">
+      </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<!-- thumnail content here -->
+
+<div class="container mt-3 p-3">
+  <h2 class="text-center">Shivam Gallery</h2>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <!-- First thumbnail with your static image -->
+    <div class="col">
+      <div class="card shadow-sm">
+        <img src="{% static '1.jpg.jpg' %}" class="card-img-top zoom-img" alt="Thumbnail 1" style="width:100%; height:225px; object-fit:cover;">
+        <div class="card-body">
+          <p class="card-text">this beautiful image show us beautiful night view. how beautiful cloud are on top of mountain.</p>
+          <div class="d-flex justify-content-between align-items-center">
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Second thumbnail with your static image -->
+    <div class="col">
+      <div class="card shadow-sm">
+        <img src="{% static '2.jpg.jpg' %}" class="card-img-top zoom-img" alt="Thumbnail 2" style="width:100%; height:225px; object-fit:cover;">
+        <div class="card-body">
+          <p class="card-text">this is a beautiful image of a very dangerous bird it called eagle. who hunt fishes from rivers their own location.</p>
+          <div class="d-flex justify-content-between align-items-center">
+          </div>  
+        </div>
+      </div>
+    </div>
+    <!-- Third thumbnail with your static image -->
+    <div class="col">
+      <div class="card shadow-sm">
+        <img src="{% static '3.jpg.jpg' %}" class="card-img-top zoom-img" alt="Thumbnail 3" style="width:100%; height:225px; object-fit:cover;">
+        <div class="card-body">
+          <p class="card-text">this is a beautiful bridge over a beautiful river who located in south asia. it length is 1.6km long.</p>
+          <div class="d-flex justify-content-between align-items-center">
+          </div>  
+        </div>
+      </div>
+    </div>
+
+ 
+
+   
+{% endblock body %}
